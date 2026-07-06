@@ -1,36 +1,67 @@
 import { Look } from "@/lib/types";
+import Motif from "./Motif";
+import Grain from "./Grain";
+
+function luminance(hex: string): number {
+  const n = parseInt(hex.slice(1), 16);
+  return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+}
 
 /**
- * A portfolio "look" rendered as an art-directed moodboard tile:
- * color story swatches, vibe line and tags. Fully self contained,
- * no external images, always renders perfectly.
+ * A portfolio look rendered as an editorial palette study: a grained
+ * color field carrying a garment line drawing, flanked by the rest of
+ * the color story. No stock photos, nothing to load, nothing to break.
  */
-export default function LookCard({ look, compact = false }: { look: Look; compact?: boolean }) {
+export default function LookCard({
+  look,
+  index,
+  compact = false,
+}: {
+  look: Look;
+  index?: number;
+  compact?: boolean;
+}) {
+  const field = look.palette[0];
+  const rest = look.palette.slice(1);
+  const fieldIsLight = luminance(field) > 0.6;
+  const inkOnField = fieldIsLight
+    ? [...look.palette].sort((a, b) => luminance(a) - luminance(b))[0]
+    : [...look.palette].sort((a, b) => luminance(b) - luminance(a))[0];
+
   return (
-    <div className="card group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
-      <div className={`relative flex ${compact ? "h-28" : "h-40"} w-full`}>
-        {look.palette.map((color, i) => (
-          <div
-            key={i}
-            className="h-full flex-1 transition-all duration-500 group-hover:first:flex-[1.6]"
-            style={{ backgroundColor: color }}
-          />
-        ))}
-        <span className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-lg shadow-card backdrop-blur">
-          {look.emoji}
-        </span>
+    <div className="group border border-line bg-white transition-colors duration-300 hover:border-ink/50">
+      <div className={`relative flex ${compact ? "h-36" : "h-52"}`}>
+        <div className="relative flex-[3] overflow-hidden" style={{ backgroundColor: field }}>
+          <Grain />
+          <span className="absolute inset-0" style={{ color: inkOnField }} aria-hidden="true">
+            <Motif
+              name={look.motif}
+              className="absolute left-1/2 top-1/2 h-[70%] -translate-x-1/2 -translate-y-1/2 transition-transform duration-500 group-hover:scale-105"
+              strokeWidth={1.1}
+            />
+          </span>
+          {typeof index === "number" && (
+            <span
+              className="absolute left-3 top-2.5 font-display text-sm"
+              style={{ color: inkOnField }}
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-1 flex-col">
+          {rest.map((c, i) => (
+            <div key={i} className="relative flex-1" style={{ backgroundColor: c }}>
+              <Grain opacity={0.25} />
+            </div>
+          ))}
+        </div>
       </div>
-      <div className={compact ? "p-4" : "p-5"}>
-        <h3 className="font-display text-lg font-semibold leading-snug text-ink">{look.title}</h3>
-        <p className="mt-0.5 text-sm italic text-ink-mute">{look.vibe}</p>
+      <div className={`border-t border-line ${compact ? "px-4 py-3.5" : "px-5 py-4"}`}>
+        <h3 className="font-display text-lg font-normal leading-snug text-ink">{look.title}</h3>
+        <p className="mt-0.5 font-display text-sm italic text-mute">{look.vibe}</p>
         {!compact && (
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {look.tags.map((t) => (
-              <span key={t} className="chip">
-                #{t}
-              </span>
-            ))}
-          </div>
+          <p className="meta mt-3">{look.tags.join(" / ")}</p>
         )}
       </div>
     </div>

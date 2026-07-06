@@ -11,11 +11,12 @@ html {
 }
 
 body {
-  @apply bg-paper text-ink font-body antialiased;
+  @apply bg-bone text-ink font-body antialiased;
+  font-feature-settings: "ss01" on;
 }
 
 ::selection {
-  @apply bg-gold/30 text-ink;
+  background: rgba(166, 67, 31, 0.18);
 }
 
 @layer components {
@@ -23,28 +24,40 @@ body {
     @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
   }
 
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-all duration-200 hover:bg-ink-soft hover:shadow-lift active:scale-[0.98];
+  .btn {
+    @apply inline-flex items-center justify-center gap-3 border px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.22em] transition-colors duration-200;
   }
 
-  .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-semibold tracking-wide text-white transition-all duration-200 hover:bg-gold-dark hover:shadow-glow active:scale-[0.98];
+  .btn-dark {
+    @apply btn border-ink bg-ink text-bone hover:bg-transparent hover:text-ink;
   }
 
-  .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-transparent px-7 py-3.5 text-sm font-semibold tracking-wide text-ink transition-all duration-200 hover:border-ink/40 hover:bg-ink/5 active:scale-[0.98];
+  .btn-outline {
+    @apply btn border-ink/60 bg-transparent text-ink hover:border-ink hover:bg-ink hover:text-bone;
   }
 
-  .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-white px-3.5 py-1.5 text-xs font-medium text-ink-mute;
+  .btn-light {
+    @apply btn border-bone/40 bg-transparent text-bone hover:border-bone hover:bg-bone hover:text-ink;
   }
 
-  .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.22em] text-gold-dark;
+  .label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.26em] text-mute;
   }
 
-  .card {
-    @apply rounded-3xl border border-ink/5 bg-white shadow-card;
+  .tag {
+    @apply inline-flex items-center border border-line bg-transparent px-2.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-mute;
+  }
+
+  .link-line {
+    @apply text-[11px] font-semibold uppercase tracking-[0.2em] text-ink underline decoration-line underline-offset-8 transition-colors hover:decoration-rust hover:text-rust;
+  }
+
+  .meta {
+    @apply text-[11px] uppercase tracking-[0.14em] text-mute;
+  }
+
+  .field {
+    @apply w-full border border-line bg-white px-4 py-3.5 text-sm text-ink outline-none transition-colors placeholder:text-mute/60 focus:border-ink;
   }
 }
 

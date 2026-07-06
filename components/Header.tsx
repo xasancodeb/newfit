@@ -6,9 +6,10 @@ import { useState } from "react";
 import Logo from "./Logo";
 
 const NAV = [
-  { href: "/stylists", label: "Find a stylist" },
+  { href: "/stylists", label: "Stylists" },
   { href: "/how-it-works", label: "How it works" },
-  { href: "/become-a-stylist", label: "Become a stylist" },
+  { href: "/become-a-stylist", label: "For stylists" },
+  { href: "/dashboard", label: "My bookings" },
 ];
 
 export default function Header() {
@@ -16,19 +17,19 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/5 bg-paper/85 backdrop-blur-xl">
-      <div className="container-site flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 border-b border-line bg-bone/90 backdrop-blur-md">
+      <div className="container-site flex h-[60px] items-center justify-between">
         <Logo />
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors ${
                 pathname.startsWith(item.href)
-                  ? "bg-ink/5 text-ink"
-                  : "text-ink-mute hover:bg-ink/5 hover:text-ink"
+                  ? "text-ink underline decoration-rust underline-offset-8"
+                  : "text-mute hover:text-ink"
               }`}
             >
               {item.label}
@@ -36,44 +37,38 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <Link
-            href="/dashboard"
-            className="rounded-full px-4 py-2 text-sm font-medium text-ink-mute transition-colors hover:bg-ink/5 hover:text-ink"
-          >
-            My bookings
-          </Link>
-          <Link href="/stylists" className="btn-primary !px-5 !py-2.5">
-            Book now
+        <div className="hidden md:block">
+          <Link href="/stylists" className="btn-dark !px-6 !py-3">
+            Book a stylist
           </Link>
         </div>
 
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-full text-ink md:hidden"
+          className="flex h-10 w-10 items-center justify-center text-ink md:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
           aria-expanded={open}
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-6 w-6">
-            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
+            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M3 8h18M3 16h18" />}
           </svg>
         </button>
       </div>
 
       {open && (
-        <nav className="border-t border-ink/5 bg-paper px-5 py-4 md:hidden" aria-label="Mobile">
-          {[...NAV, { href: "/dashboard", label: "My bookings" }].map((item) => (
+        <nav className="border-t border-line bg-bone px-5 py-6 md:hidden" aria-label="Mobile">
+          {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="block rounded-xl px-4 py-3 text-base font-medium text-ink hover:bg-ink/5"
+              className="block border-b border-line py-4 font-display text-2xl text-ink"
             >
               {item.label}
             </Link>
           ))}
-          <Link href="/stylists" onClick={() => setOpen(false)} className="btn-primary mt-3 w-full">
-            Book now
+          <Link href="/stylists" onClick={() => setOpen(false)} className="btn-dark mt-6 w-full">
+            Book a stylist
           </Link>
         </nav>
       )}

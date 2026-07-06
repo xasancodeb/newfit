@@ -61,69 +61,47 @@ export default function BrowseClient() {
     return list;
   }, [query, category, city, virtualOnly, instantOnly, sort]);
 
+  const selectCls =
+    "border border-line bg-white px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink outline-none transition-colors focus:border-ink";
+
   return (
-    <div className="container-site py-12">
-      <div className="max-w-2xl">
-        <p className="eyebrow">Find a stylist</p>
-        <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
-          {STYLISTS.length} exceptional stylists, one of them is yours
+    <div className="container-site py-14">
+      <div className="max-w-3xl border-b border-line pb-10">
+        <p className="label">The directory</p>
+        <h1 className="mt-4 font-display text-5xl font-light tracking-tight text-ink sm:text-6xl">
+          {STYLISTS.length} stylists. <em>One is yours.</em>
         </h1>
-        <p className="mt-3 text-ink-mute">
-          Every profile is a real portfolio: looks, reviews, prices and availability.
+        <p className="mt-4 text-mute">
+          Every profile is a working portfolio: looks, reviews, prices, availability.
         </p>
       </div>
 
-      <div className="sticky top-16 z-40 -mx-5 mt-8 border-y border-ink/5 bg-paper/90 px-5 py-4 backdrop-blur-xl sm:-mx-8 sm:px-8">
+      <div className="sticky top-[60px] z-40 -mx-5 border-b border-line bg-bone/95 px-5 py-4 backdrop-blur-md sm:-mx-8 sm:px-8">
         <div className="flex flex-wrap items-center gap-3">
-          <div className="relative min-w-[220px] flex-1">
-            <svg
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-mute"
-              aria-hidden="true"
-            >
-              <path fillRule="evenodd" d="M8 3a5 5 0 103.1 8.9l4 4a1 1 0 001.4-1.4l-4-4A5 5 0 008 3zM5 8a3 3 0 116 0 3 3 0 01-6 0z" clipRule="evenodd" />
-            </svg>
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by name, specialty, city or vibe"
-              className="w-full rounded-full border border-ink/10 bg-white py-3 pl-11 pr-4 text-sm outline-none transition-colors placeholder:text-ink-mute/70 focus:border-gold"
-              aria-label="Search stylists"
-            />
-          </div>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search name, specialty, city, vibe"
+            className="field min-w-[220px] flex-1 !py-3 text-sm normal-case"
+            aria-label="Search stylists"
+          />
 
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="rounded-full border border-ink/10 bg-white px-4 py-3 text-sm font-medium outline-none focus:border-gold"
-            aria-label="Filter by specialty"
-          >
+          <select value={category} onChange={(e) => setCategory(e.target.value)} className={selectCls} aria-label="Filter by specialty">
             <option>All</option>
             {CATEGORIES.map((c) => (
               <option key={c.name}>{c.name}</option>
             ))}
           </select>
 
-          <select
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            className="rounded-full border border-ink/10 bg-white px-4 py-3 text-sm font-medium outline-none focus:border-gold"
-            aria-label="Filter by city"
-          >
+          <select value={city} onChange={(e) => setCity(e.target.value)} className={selectCls} aria-label="Filter by city">
             <option>All cities</option>
             {CITIES.map((c) => (
               <option key={c}>{c}</option>
             ))}
           </select>
 
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as SortKey)}
-            className="rounded-full border border-ink/10 bg-white px-4 py-3 text-sm font-medium outline-none focus:border-gold"
-            aria-label="Sort results"
-          >
+          <select value={sort} onChange={(e) => setSort(e.target.value as SortKey)} className={selectCls} aria-label="Sort results">
             {SORTS.map((s) => (
               <option key={s.key} value={s.key}>
                 {s.label}
@@ -134,28 +112,28 @@ export default function BrowseClient() {
           <button
             onClick={() => setVirtualOnly(!virtualOnly)}
             aria-pressed={virtualOnly}
-            className={`rounded-full border px-4 py-3 text-sm font-medium transition-colors ${
-              virtualOnly ? "border-gold bg-gold/10 text-gold-dark" : "border-ink/10 bg-white text-ink-mute hover:border-ink/25"
+            className={`border px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${
+              virtualOnly ? "border-ink bg-ink text-bone" : "border-line bg-white text-mute hover:border-ink hover:text-ink"
             }`}
           >
-            💻 Virtual
+            Virtual
           </button>
           <button
             onClick={() => setInstantOnly(!instantOnly)}
             aria-pressed={instantOnly}
-            className={`rounded-full border px-4 py-3 text-sm font-medium transition-colors ${
-              instantOnly ? "border-gold bg-gold/10 text-gold-dark" : "border-ink/10 bg-white text-ink-mute hover:border-ink/25"
+            className={`border px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${
+              instantOnly ? "border-ink bg-ink text-bone" : "border-line bg-white text-mute hover:border-ink hover:text-ink"
             }`}
           >
-            ⚡ Instant book
+            Instant book
           </button>
         </div>
       </div>
 
-      <p className="mt-8 text-sm text-ink-mute">
+      <p className="meta mt-8">
         {results.length} {results.length === 1 ? "stylist" : "stylists"}
-        {category !== "All" && <> in <span className="font-semibold text-ink">{category}</span></>}
-        {city !== "All cities" && <> around <span className="font-semibold text-ink">{city}</span></>}
+        {category !== "All" && <> / {category}</>}
+        {city !== "All cities" && <> / {city}</>}
       </p>
 
       {results.length > 0 ? (
@@ -165,12 +143,11 @@ export default function BrowseClient() {
           ))}
         </div>
       ) : (
-        <div className="card mt-6 flex flex-col items-center gap-3 p-16 text-center">
-          <span className="text-4xl">🪞</span>
-          <h2 className="font-display text-2xl font-semibold text-ink">No matches, yet</h2>
-          <p className="max-w-sm text-sm text-ink-mute">
-            Try clearing a filter or two. New stylists join NewFit every week, so your perfect
-            match may be onboarding right now.
+        <div className="mt-6 border border-line bg-white px-8 py-20 text-center">
+          <h2 className="font-display text-3xl font-light text-ink">No matches, yet</h2>
+          <p className="mx-auto mt-3 max-w-sm text-sm text-mute">
+            Try clearing a filter or two. New stylists join NewFit every week, so your match may
+            be onboarding right now.
           </p>
           <button
             onClick={() => {
@@ -180,7 +157,7 @@ export default function BrowseClient() {
               setVirtualOnly(false);
               setInstantOnly(false);
             }}
-            className="btn-primary mt-2"
+            className="btn-outline mt-8"
           >
             Clear all filters
           </button>

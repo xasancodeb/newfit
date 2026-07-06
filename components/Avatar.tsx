@@ -12,6 +12,7 @@ const sizes = {
   xl: "h-28 w-28 text-4xl",
 };
 
+/** Flat typographic monogram tile. Deliberately not a photo, not a gradient. */
 export default function Avatar({ name, gradient, size = "md", className = "" }: AvatarProps) {
   const initials = name
     .split(" ")
@@ -20,8 +21,8 @@ export default function Avatar({ name, gradient, size = "md", className = "" }: 
     .join("");
   return (
     <div
-      className={`flex shrink-0 items-center justify-center rounded-full font-display font-semibold text-white ring-2 ring-white/60 ${sizes[size]} ${className}`}
-      style={{ background: `linear-gradient(135deg, ${gradient[0]}, ${gradient[1]})` }}
+      className={`flex shrink-0 items-center justify-center font-display font-normal text-bone ${sizes[size]} ${className}`}
+      style={{ backgroundColor: gradient[1] }}
       aria-hidden="true"
     >
       {initials}

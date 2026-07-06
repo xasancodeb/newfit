@@ -1,84 +1,73 @@
 import Link from "next/link";
 import { Stylist } from "@/lib/types";
 import { formatMoney } from "@/lib/data";
-import Avatar from "./Avatar";
-import Stars from "./Stars";
+import Motif from "./Motif";
+import Grain from "./Grain";
 
+/** Editorial directory tile: palette-study banner, serif name, small-caps meta. */
 export default function StylistCard({ stylist }: { stylist: Stylist }) {
+  const look = stylist.looks[0];
+
   return (
     <Link
       href={`/stylists/${stylist.id}`}
-      className="card group block overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift"
+      className="group block border border-line bg-white transition-colors duration-300 hover:border-ink"
     >
-      {/* Signature color banner built from the stylist's look palettes */}
-      <div className="relative h-24">
-        <div
-          className="absolute inset-0"
-          style={{ background: `linear-gradient(120deg, ${stylist.gradient[0]}, ${stylist.gradient[1]})` }}
-        />
-        <div className="absolute inset-x-0 bottom-0 flex h-2.5">
-          {stylist.looks[0].palette.map((c, i) => (
+      <div className="relative h-44 overflow-hidden" style={{ backgroundColor: stylist.gradient[1] }}>
+        <Grain />
+        <span className="absolute inset-0 text-bone/90" aria-hidden="true">
+          <Motif
+            name={look.motif}
+            className="absolute left-1/2 top-1/2 h-[68%] -translate-x-1/2 -translate-y-1/2 transition-transform duration-500 group-hover:scale-105"
+            strokeWidth={1}
+          />
+        </span>
+        <div className="absolute inset-x-0 bottom-0 flex h-2">
+          {look.palette.map((c, i) => (
             <div key={i} className="flex-1" style={{ backgroundColor: c }} />
           ))}
         </div>
-        <div className="absolute left-5 top-4 flex gap-2">
+        <div className="absolute left-4 top-4 flex flex-wrap gap-1.5">
           {stylist.topRated && (
-            <span className="rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-gold-dark shadow-sm">
-              ★ Top Rated
+            <span className="bg-bone px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-ink">
+              Top rated
             </span>
           )}
           {stylist.risingStar && (
-            <span className="rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-clay shadow-sm">
-              ↑ Rising Star
+            <span className="bg-bone px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-rust">
+              Rising
             </span>
           )}
           {stylist.instantBook && (
-            <span className="rounded-full bg-ink/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-paper shadow-sm backdrop-blur">
-              ⚡ Instant Book
+            <span className="border border-bone/50 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-bone">
+              Instant book
             </span>
           )}
         </div>
+        <span className="absolute bottom-4 right-4 mb-2 font-display text-sm text-bone/90">
+          ★ {stylist.rating.toFixed(2)}
+        </span>
       </div>
 
-      <div className="relative px-5 pb-5">
-        <div className="-mt-8 mb-3 flex items-end justify-between">
-          <Avatar name={stylist.name} gradient={stylist.gradient} size="lg" className="ring-4 ring-white" />
-          <Stars rating={stylist.rating} className="mb-1" />
-        </div>
-
-        <h3 className="font-display text-xl font-semibold text-ink transition-colors group-hover:text-gold-dark">
+      <div className="px-5 pb-5 pt-4">
+        <h3 className="font-display text-[22px] font-normal leading-tight text-ink underline-offset-4 group-hover:underline group-hover:decoration-line">
           {stylist.name}
         </h3>
-        <p className="mt-0.5 line-clamp-1 text-sm text-ink-mute">{stylist.tagline}</p>
-
-        <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-ink-mute">
-          <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
-            <path fillRule="evenodd" d="M10 18s6-5.1 6-9.5A6 6 0 004 8.5C4 12.9 10 18 10 18zm0-7a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" clipRule="evenodd" />
-          </svg>
+        <p className="mt-1 line-clamp-1 text-sm text-mute">{stylist.tagline}</p>
+        <p className="meta mt-3">
           {stylist.neighborhood}, {stylist.city}
-          {stylist.virtual && <span className="chip ml-1 !py-0.5">Virtual available</span>}
+          {stylist.virtual && " · Virtual"}
         </p>
-
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {stylist.specialties.slice(0, 3).map((s) => (
-            <span key={s} className="chip">
-              {s}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-4 flex items-center justify-between border-t border-ink/5 pt-4">
-          <div>
-            <p className="text-xs text-ink-mute">
-              {stylist.reviewCount} reviews · {stylist.bookings.toLocaleString()} bookings
-            </p>
-            <p className="mt-0.5 text-sm font-semibold text-ink">
-              From {formatMoney(stylist.startingPrice)}
-            </p>
-          </div>
-          <span className="rounded-full bg-paper-warm px-3 py-1.5 text-xs font-semibold text-ink-soft">
-            Next: {stylist.nextAvailable}
-          </span>
+        <p className="meta mt-1.5 normal-case tracking-normal text-mute">
+          {stylist.specialties.join(" / ")}
+        </p>
+        <div className="mt-4 flex items-baseline justify-between border-t border-line pt-4">
+          <p className="text-sm text-ink">
+            From <span className="font-display text-lg">{formatMoney(stylist.startingPrice)}</span>
+          </p>
+          <p className="meta">
+            {stylist.reviewCount} reviews · Next {stylist.nextAvailable}
+          </p>
         </div>
       </div>
     </Link>

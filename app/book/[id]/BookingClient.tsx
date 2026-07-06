@@ -75,92 +75,99 @@ export default function BookingClient({ stylistId }: { stylistId: string }) {
 
   if (step === 4) {
     return (
-      <div className="container-site flex justify-center py-16">
-        <div className="w-full max-w-lg animate-fade-up text-center">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-sage-soft text-4xl">
-            🎉
-          </div>
-          <h1 className="mt-6 font-display text-4xl font-semibold tracking-tight text-ink">
-            You&apos;re booked!
+      <div className="container-site flex justify-center py-20">
+        <div className="w-full max-w-lg animate-fade-up">
+          <p className="label text-center">Confirmation {confirmedId}</p>
+          <h1 className="mt-5 text-center font-display text-5xl font-light tracking-tight text-ink">
+            Consider it <em>booked.</em>
           </h1>
-          <p className="mt-3 text-ink-mute">
+          <p className="mt-4 text-center text-mute">
             {stylist.name} has your session details and will reach out{" "}
             {stylist.responseTime.replace("about ", "within about ").replace("under", "within")}.
           </p>
-          <div className="card mt-8 p-6 text-left">
-            <div className="flex items-center gap-3 border-b border-ink/5 pb-4">
+          <div className="mt-10 border border-ink bg-white p-6">
+            <div className="flex items-center gap-4 border-b border-line pb-5">
               <Avatar name={stylist.name} gradient={stylist.gradient} size="md" />
               <div>
-                <p className="font-semibold text-ink">{stylist.name}</p>
-                <p className="text-sm text-ink-mute">{service?.name}</p>
+                <p className="font-display text-lg text-ink">{stylist.name}</p>
+                <p className="meta mt-0.5">{service?.name}</p>
               </div>
             </div>
-            <dl className="mt-4 space-y-2 text-sm">
-              <div className="flex justify-between"><dt className="text-ink-mute">Confirmation</dt><dd className="font-mono font-semibold text-ink">{confirmedId}</dd></div>
-              <div className="flex justify-between"><dt className="text-ink-mute">When</dt><dd className="font-semibold text-ink">{prettyDate} at {time}</dd></div>
-              <div className="flex justify-between"><dt className="text-ink-mute">Where</dt><dd className="font-semibold text-ink">{mode}</dd></div>
-              <div className="flex justify-between border-t border-ink/5 pt-2"><dt className="text-ink-mute">Total paid</dt><dd className="font-semibold text-ink">{formatMoney(total)}</dd></div>
+            <dl className="mt-5 space-y-3 text-sm">
+              <div className="flex justify-between"><dt className="text-mute">When</dt><dd className="font-semibold text-ink">{prettyDate} at {time}</dd></div>
+              <div className="flex justify-between"><dt className="text-mute">Where</dt><dd className="font-semibold text-ink">{mode}</dd></div>
+              <div className="flex justify-between border-t border-line pt-3"><dt className="text-mute">Total paid</dt><dd className="font-display text-lg text-ink">{formatMoney(total)}</dd></div>
             </dl>
           </div>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/dashboard" className="btn-primary">View my bookings</Link>
-            <Link href="/stylists" className="btn-ghost">Browse more stylists</Link>
+          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link href="/dashboard" className="btn-dark">My bookings</Link>
+            <Link href="/stylists" className="btn-outline">Keep browsing</Link>
           </div>
         </div>
       </div>
     );
   }
 
+  const cell = (active: boolean) =>
+    `border text-sm transition-colors ${
+      active ? "border-ink bg-ink text-bone" : "border-line bg-white text-ink hover:border-ink"
+    }`;
+
   return (
-    <div className="container-site py-12">
-      <Link href={`/stylists/${stylist.id}`} className="text-sm font-semibold text-gold-dark hover:underline">
-        ← Back to {stylist.name}&apos;s profile
+    <div className="container-site py-14">
+      <Link href={`/stylists/${stylist.id}`} className="link-line">
+        Back to {stylist.name}
       </Link>
 
-      <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_360px]">
+      <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_340px]">
         <div>
-          <div className="flex items-center gap-2" aria-label={`Step ${step} of 3`}>
-            {[1, 2, 3].map((n) => (
-              <div key={n} className="flex flex-1 items-center gap-2">
-                <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                    step >= n ? "bg-ink text-paper" : "bg-paper-deep text-ink-mute"
+          <div className="flex border-y border-line" aria-label={`Step ${step} of 3`}>
+            {["Service", "Schedule", "Review"].map((name, i) => {
+              const n = i + 1;
+              return (
+                <div
+                  key={name}
+                  className={`flex flex-1 items-center gap-3 border-r border-line px-4 py-4 last:border-r-0 ${
+                    step === n ? "bg-white" : ""
                   }`}
                 >
-                  {step > n ? "✓" : n}
-                </span>
-                <span className={`hidden text-xs font-semibold sm:block ${step >= n ? "text-ink" : "text-ink-mute"}`}>
-                  {n === 1 ? "Service" : n === 2 ? "Schedule" : "Review & pay"}
-                </span>
-                {n < 3 && <span className={`h-0.5 flex-1 rounded ${step > n ? "bg-ink" : "bg-paper-deep"}`} />}
-              </div>
-            ))}
+                  <span className={`font-display text-sm ${step >= n ? "text-rust" : "text-mute"}`}>
+                    {String(n).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`hidden text-[10px] font-semibold uppercase tracking-[0.18em] sm:block ${
+                      step >= n ? "text-ink" : "text-mute"
+                    }`}
+                  >
+                    {step > n ? `${name} ✓` : name}
+                  </span>
+                </div>
+              );
+            })}
           </div>
 
           {step === 1 && (
-            <section className="mt-8 animate-fade-up">
-              <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">
+            <section className="mt-10 animate-fade-up">
+              <h1 className="font-display text-4xl font-light tracking-tight text-ink">
                 Choose your session
               </h1>
-              <div className="mt-6 space-y-4">
+              <div className="mt-8 border-t border-line">
                 {stylist.services.map((svc) => (
                   <button
                     key={svc.id}
                     onClick={() => { setServiceId(svc.id); setMode(""); setStep(2); }}
-                    className={`card w-full p-6 text-left transition-all hover:-translate-y-0.5 hover:shadow-lift ${
-                      serviceId === svc.id ? "ring-2 ring-gold" : ""
-                    }`}
+                    className="group flex w-full items-center gap-8 border-b border-line py-6 text-left transition-colors hover:bg-white"
                   >
-                    <div className="flex items-center justify-between gap-4">
-                      <div>
-                        <h2 className="font-display text-lg font-semibold text-ink">{svc.name}</h2>
-                        <p className="mt-1 text-sm text-ink-mute">{svc.description}</p>
-                        <p className="mt-2 text-xs font-medium text-ink-mute">⏱ {svc.duration} · {svc.mode}</p>
-                      </div>
-                      <p className="shrink-0 font-display text-2xl font-semibold text-ink">
-                        {formatMoney(svc.price)}
-                      </p>
+                    <div className="flex-1 pl-2">
+                      <h2 className="font-display text-xl font-normal text-ink group-hover:text-rust">
+                        {svc.name}
+                      </h2>
+                      <p className="mt-1.5 max-w-xl text-sm text-mute">{svc.description}</p>
+                      <p className="meta mt-2.5">{svc.duration} · {svc.mode}</p>
                     </div>
+                    <p className="shrink-0 pr-2 font-display text-2xl font-light text-ink">
+                      {formatMoney(svc.price)}
+                    </p>
                   </button>
                 ))}
               </div>
@@ -168,88 +175,62 @@ export default function BookingClient({ stylistId }: { stylistId: string }) {
           )}
 
           {step === 2 && service && (
-            <section className="mt-8 animate-fade-up">
-              <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">
-                Pick a time
-              </h1>
-              <p className="mt-2 text-sm text-ink-mute">
-                All times shown in {stylist.city} local time. Sessions can be rescheduled free up
-                to 24 hours ahead.
+            <section className="mt-10 animate-fade-up">
+              <h1 className="font-display text-4xl font-light tracking-tight text-ink">Pick a time</h1>
+              <p className="mt-3 text-sm text-mute">
+                All times in {stylist.city} local time. Reschedule free up to 24 hours ahead.
               </p>
 
-              <h2 className="mt-7 text-sm font-semibold uppercase tracking-wider text-ink-mute">Date</h2>
+              <h2 className="label mt-9">Date</h2>
               <div className="mt-3 flex gap-2 overflow-x-auto pb-2">
                 {days.map((d) => (
                   <button
                     key={d.iso}
                     onClick={() => setDate(d.iso)}
-                    className={`flex w-16 shrink-0 flex-col items-center rounded-2xl border px-2 py-3 transition-colors ${
-                      date === d.iso
-                        ? "border-ink bg-ink text-paper"
-                        : "border-ink/10 bg-white text-ink hover:border-ink/40"
-                    }`}
+                    className={`flex w-16 shrink-0 flex-col items-center px-2 py-3 ${cell(date === d.iso)}`}
                   >
-                    <span className="text-[11px] font-semibold uppercase opacity-70">{d.dow}</span>
-                    <span className="font-display text-xl font-semibold">{d.day}</span>
-                    <span className="text-[11px] opacity-70">{d.month}</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-wider opacity-60">{d.dow}</span>
+                    <span className="font-display text-xl">{d.day}</span>
+                    <span className="text-[10px] uppercase opacity-60">{d.month}</span>
                   </button>
                 ))}
               </div>
 
-              <h2 className="mt-6 text-sm font-semibold uppercase tracking-wider text-ink-mute">Time</h2>
+              <h2 className="label mt-8">Time</h2>
               <div className="mt-3 flex flex-wrap gap-2">
                 {TIMES.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setTime(t)}
-                    className={`rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors ${
-                      time === t
-                        ? "border-ink bg-ink text-paper"
-                        : "border-ink/10 bg-white text-ink hover:border-ink/40"
-                    }`}
-                  >
+                  <button key={t} onClick={() => setTime(t)} className={`px-5 py-2.5 font-medium ${cell(time === t)}`}>
                     {t}
                   </button>
                 ))}
               </div>
 
-              <h2 className="mt-6 text-sm font-semibold uppercase tracking-wider text-ink-mute">Where</h2>
+              <h2 className="label mt-8">Where</h2>
               <div className="mt-3 flex flex-wrap gap-2">
-                {(service.mode === "In person or virtual"
-                  ? ["In person", "Virtual"]
-                  : [service.mode]
-                ).map((m) => (
-                  <button
-                    key={m}
-                    onClick={() => setMode(m)}
-                    className={`rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors ${
-                      mode === m
-                        ? "border-ink bg-ink text-paper"
-                        : "border-ink/10 bg-white text-ink hover:border-ink/40"
-                    }`}
-                  >
-                    {m === "Virtual" ? "💻 Virtual" : "📍 In person"}
+                {(service.mode === "In person or virtual" ? ["In person", "Virtual"] : [service.mode]).map((m) => (
+                  <button key={m} onClick={() => setMode(m)} className={`px-5 py-2.5 font-medium ${cell(mode === m)}`}>
+                    {m}
                   </button>
                 ))}
               </div>
 
-              <h2 className="mt-6 text-sm font-semibold uppercase tracking-wider text-ink-mute">
-                Tell {stylist.name.split(" ")[0]} about you <span className="normal-case text-ink-mute/70">(optional)</span>
+              <h2 className="label mt-8">
+                Tell {stylist.name.split(" ")[0]} about you <span className="text-mute/60">(optional)</span>
               </h2>
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={3}
                 placeholder="Your goals, sizes, budget, the event, anything that helps..."
-                className="mt-3 w-full rounded-2xl border border-ink/10 bg-white p-4 text-sm outline-none transition-colors placeholder:text-ink-mute/60 focus:border-gold"
+                className="field mt-3"
               />
 
-              <div className="mt-8 flex gap-3">
-                <button onClick={() => setStep(1)} className="btn-ghost">Back</button>
+              <div className="mt-10 flex gap-4">
+                <button onClick={() => setStep(1)} className="btn-outline">Back</button>
                 <button
                   onClick={() => setStep(3)}
                   disabled={!date || !time || !mode}
-                  className="btn-primary disabled:cursor-not-allowed disabled:opacity-40"
+                  className="btn-dark disabled:cursor-not-allowed disabled:opacity-30"
                 >
                   Continue to review
                 </button>
@@ -258,51 +239,43 @@ export default function BookingClient({ stylistId }: { stylistId: string }) {
           )}
 
           {step === 3 && service && (
-            <section className="mt-8 animate-fade-up">
-              <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">
-                Review and pay
-              </h1>
-              <div className="card mt-6 p-6">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-ink-mute">Your session</h2>
-                <dl className="mt-3 space-y-2 text-sm">
-                  <div className="flex justify-between"><dt className="text-ink-mute">Service</dt><dd className="font-semibold text-ink">{service.name}</dd></div>
-                  <div className="flex justify-between"><dt className="text-ink-mute">Stylist</dt><dd className="font-semibold text-ink">{stylist.name}</dd></div>
-                  <div className="flex justify-between"><dt className="text-ink-mute">When</dt><dd className="font-semibold text-ink">{prettyDate} at {time}</dd></div>
-                  <div className="flex justify-between"><dt className="text-ink-mute">Where</dt><dd className="font-semibold text-ink">{mode}</dd></div>
+            <section className="mt-10 animate-fade-up">
+              <h1 className="font-display text-4xl font-light tracking-tight text-ink">Review and pay</h1>
+
+              <div className="mt-8 border border-line bg-white p-6">
+                <h2 className="label">Your session</h2>
+                <dl className="mt-4 space-y-3 text-sm">
+                  <div className="flex justify-between"><dt className="text-mute">Service</dt><dd className="font-semibold text-ink">{service.name}</dd></div>
+                  <div className="flex justify-between"><dt className="text-mute">Stylist</dt><dd className="font-semibold text-ink">{stylist.name}</dd></div>
+                  <div className="flex justify-between"><dt className="text-mute">When</dt><dd className="font-semibold text-ink">{prettyDate} at {time}</dd></div>
+                  <div className="flex justify-between"><dt className="text-mute">Where</dt><dd className="font-semibold text-ink">{mode}</dd></div>
                 </dl>
               </div>
 
-              <div className="card mt-4 p-6">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-ink-mute">Payment</h2>
-                <div className="mt-3 flex items-center gap-3 rounded-2xl border border-ink/10 bg-paper-warm p-4">
-                  <span className="flex h-10 w-14 items-center justify-center rounded-lg bg-ink text-xs font-bold text-paper">VISA</span>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-ink">Card ending in 4242</p>
-                    <p className="text-xs text-ink-mute">Demo checkout. Stripe drops in here for launch.</p>
-                  </div>
-                  <span className="text-xs font-semibold text-gold-dark">Change</span>
+              <div className="mt-4 border border-line bg-white p-6">
+                <h2 className="label">Payment</h2>
+                <div className="mt-4 flex items-center justify-between border border-line px-4 py-3.5">
+                  <p className="text-sm font-semibold text-ink">Card ending 4242</p>
+                  <span className="meta">Demo · Stripe drops in at launch</span>
                 </div>
-                <dl className="mt-4 space-y-2 border-t border-ink/5 pt-4 text-sm">
-                  <div className="flex justify-between"><dt className="text-ink-mute">{service.name}</dt><dd className="text-ink">{formatMoney(service.price)}</dd></div>
-                  <div className="flex justify-between">
-                    <dt className="text-ink-mute">NewFit booking fee (5%)</dt>
-                    <dd className="text-ink">{formatMoney(fee)}</dd>
-                  </div>
-                  <div className="flex justify-between border-t border-ink/5 pt-2 text-base">
-                    <dt className="font-semibold text-ink">Total</dt>
-                    <dd className="font-display text-xl font-semibold text-ink">{formatMoney(total)}</dd>
+                <dl className="mt-5 space-y-3 border-t border-line pt-5 text-sm">
+                  <div className="flex justify-between"><dt className="text-mute">{service.name}</dt><dd className="text-ink">{formatMoney(service.price)}</dd></div>
+                  <div className="flex justify-between"><dt className="text-mute">NewFit booking fee (5%)</dt><dd className="text-ink">{formatMoney(fee)}</dd></div>
+                  <div className="flex justify-between border-t border-line pt-3">
+                    <dt className="font-semibold uppercase tracking-[0.14em] text-ink">Total</dt>
+                    <dd className="font-display text-2xl font-light text-ink">{formatMoney(total)}</dd>
                   </div>
                 </dl>
               </div>
 
-              <p className="mt-4 text-xs leading-relaxed text-ink-mute">
+              <p className="mt-5 max-w-lg text-xs leading-relaxed text-mute">
                 By booking you agree to the NewFit terms. Your payment is held securely and only
                 released to the stylist after your session. Covered by the NewFit Guarantee.
               </p>
 
-              <div className="mt-6 flex gap-3">
-                <button onClick={() => setStep(2)} className="btn-ghost">Back</button>
-                <button onClick={confirm} className="btn-gold flex-1 text-base sm:flex-none">
+              <div className="mt-8 flex gap-4">
+                <button onClick={() => setStep(2)} className="btn-outline">Back</button>
+                <button onClick={confirm} className="btn-dark">
                   Confirm and pay {formatMoney(total)}
                 </button>
               </div>
@@ -310,33 +283,34 @@ export default function BookingClient({ stylistId }: { stylistId: string }) {
           )}
         </div>
 
-        <aside className="order-first lg:order-none lg:pt-14">
-          <div className="card sticky top-24 p-6">
-            <div className="flex items-center gap-3">
+        <aside className="order-first lg:order-none lg:pt-16">
+          <div className="sticky top-24 border border-line bg-white p-6">
+            <div className="flex items-center gap-4">
               <Avatar name={stylist.name} gradient={stylist.gradient} size="md" />
               <div>
-                <p className="font-semibold text-ink">{stylist.name}</p>
-                <div className="flex items-center gap-2 text-xs text-ink-mute">
-                  <Stars rating={stylist.rating} /> · {stylist.reviewCount} reviews
+                <p className="font-display text-lg text-ink">{stylist.name}</p>
+                <div className="mt-0.5 flex items-center gap-3">
+                  <Stars rating={stylist.rating} />
+                  <span className="meta">{stylist.reviewCount} reviews</span>
                 </div>
               </div>
             </div>
-            <div className="mt-4 flex h-2 overflow-hidden rounded-full">
+            <div className="mt-5 flex h-1.5">
               {stylist.looks[0].palette.map((c, i) => (
                 <div key={i} className="flex-1" style={{ backgroundColor: c }} />
               ))}
             </div>
             {service ? (
-              <dl className="mt-4 space-y-2 text-sm">
-                <div className="flex justify-between"><dt className="text-ink-mute">{service.name}</dt><dd className="text-ink">{formatMoney(service.price)}</dd></div>
-                <div className="flex justify-between"><dt className="text-ink-mute">Booking fee</dt><dd className="text-ink">{formatMoney(fee)}</dd></div>
-                <div className="flex justify-between border-t border-ink/5 pt-2"><dt className="font-semibold text-ink">Total</dt><dd className="font-semibold text-ink">{formatMoney(total)}</dd></div>
+              <dl className="mt-5 space-y-3 text-sm">
+                <div className="flex justify-between"><dt className="text-mute">{service.name}</dt><dd className="text-ink">{formatMoney(service.price)}</dd></div>
+                <div className="flex justify-between"><dt className="text-mute">Booking fee</dt><dd className="text-ink">{formatMoney(fee)}</dd></div>
+                <div className="flex justify-between border-t border-line pt-3"><dt className="font-semibold text-ink">Total</dt><dd className="font-display text-lg text-ink">{formatMoney(total)}</dd></div>
               </dl>
             ) : (
-              <p className="mt-4 text-sm text-ink-mute">Select a service to see your total.</p>
+              <p className="mt-5 text-sm text-mute">Select a service to see your total.</p>
             )}
-            <p className="mt-4 rounded-xl bg-paper-warm p-3 text-xs leading-relaxed text-ink-mute">
-              💛 Free cancellation up to 24h before. Full refund or free rebooking if your first
+            <p className="mt-5 border-t border-line pt-4 text-xs leading-relaxed text-mute">
+              Free cancellation up to 24h before. Full refund or free rebooking if your first
               session is not a hit.
             </p>
           </div>

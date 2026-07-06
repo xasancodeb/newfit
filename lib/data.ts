@@ -1,16 +1,16 @@
-import { Stylist, ServiceCategory } from "./types";
+import { Stylist, ServiceCategory, MotifName } from "./types";
 
 /** Platform economics: clients pay a 5% booking fee, stylists keep 85% of every service. */
 export const CLIENT_FEE_RATE = 0.05;
 export const STYLIST_KEEP_RATE = 0.85;
 
-export const CATEGORIES: { name: ServiceCategory; emoji: string; blurb: string }[] = [
-  { name: "Wardrobe Makeover", emoji: "🧥", blurb: "A full reset of how you dress, built around your life" },
-  { name: "Personal Shopping", emoji: "🛍️", blurb: "A pro shops with you or for you, on any budget" },
-  { name: "Event Styling", emoji: "✨", blurb: "Weddings, galas, interviews, first dates, big stages" },
-  { name: "Closet Edit", emoji: "🗂️", blurb: "Keep, tailor, donate. Leave with outfits, not piles" },
-  { name: "Virtual Consult", emoji: "💻", blurb: "Expert eyes on your style from anywhere on earth" },
-  { name: "Color Analysis", emoji: "🎨", blurb: "Find the palette that makes your skin light up" },
+export const CATEGORIES: { name: ServiceCategory; motif: MotifName; blurb: string }[] = [
+  { name: "Wardrobe Makeover", motif: "coat", blurb: "A full reset of how you dress, built around your life" },
+  { name: "Personal Shopping", motif: "bag", blurb: "A pro shops with you or for you, on any budget" },
+  { name: "Event Styling", motif: "dress", blurb: "Weddings, galas, interviews, first dates, big stages" },
+  { name: "Closet Edit", motif: "scissors", blurb: "Keep, tailor, donate. Leave with outfits, not piles" },
+  { name: "Virtual Consult", motif: "mirror", blurb: "Expert eyes on your style from anywhere on earth" },
+  { name: "Color Analysis", motif: "swatch", blurb: "Find the palette that makes your skin light up" },
 ];
 
 export const CITIES = [
@@ -56,12 +56,12 @@ export const STYLISTS: Stylist[] = [
       { id: "s4", name: "Seasonal Color Mapping", category: "Color Analysis", duration: "90 min", price: 150, description: "Drape based color analysis with a personal palette card you can carry in your wallet forever.", mode: "In person or virtual" },
     ],
     looks: [
-      { id: "l1", title: "Terracotta Tailoring", vibe: "Sharp but warm", tags: ["workwear", "tonal"], palette: ["#C4593A", "#E8C3B5", "#7A4A32", "#F3EDE3", "#181411"], emoji: "🧥" },
-      { id: "l2", title: "Gallery Opening", vibe: "Art crowd polish", tags: ["evening", "statement"], palette: ["#181411", "#B8863B", "#5C4560", "#FAF7F1", "#8F3A2A"], emoji: "🖼️" },
-      { id: "l3", title: "Sunday Uniform", vibe: "Effortless off duty", tags: ["casual", "capsule"], palette: ["#D6CDBF", "#7A8B6F", "#F3EDE3", "#3E3A34", "#C4593A"], emoji: "☕" },
-      { id: "l4", title: "Color Confidence", vibe: "Loud on purpose", tags: ["color", "bold"], palette: ["#C4593A", "#3E5C6B", "#D9B87A", "#5C4560", "#FAF7F1"], emoji: "🎨" },
-      { id: "l5", title: "The Interview Suit, Rewired", vibe: "Authority with edge", tags: ["workwear", "tailoring"], palette: ["#2A241F", "#B8863B", "#EAE1D3", "#6B6259", "#C4593A"], emoji: "💼" },
-      { id: "l6", title: "City Weekend Capsule", vibe: "Ten pieces, one carry on", tags: ["travel", "capsule"], palette: ["#F3EDE3", "#181411", "#C4593A", "#7A8B6F", "#D9B87A"], emoji: "🧳" },
+      { id: "l1", title: "Terracotta Tailoring", vibe: "Sharp but warm", tags: ["workwear", "tonal"], palette: ["#C4593A", "#E8C3B5", "#7A4A32", "#F3EDE3", "#181411"], motif: "coat" },
+      { id: "l2", title: "Gallery Opening", vibe: "Art crowd polish", tags: ["evening", "statement"], palette: ["#181411", "#B8863B", "#5C4560", "#FAF7F1", "#8F3A2A"], motif: "dress" },
+      { id: "l3", title: "Sunday Uniform", vibe: "Effortless off duty", tags: ["casual", "capsule"], palette: ["#D6CDBF", "#7A8B6F", "#F3EDE3", "#3E3A34", "#C4593A"], motif: "shirt" },
+      { id: "l4", title: "Color Confidence", vibe: "Loud on purpose", tags: ["color", "bold"], palette: ["#C4593A", "#3E5C6B", "#D9B87A", "#5C4560", "#FAF7F1"], motif: "swatch" },
+      { id: "l5", title: "The Interview Suit, Rewired", vibe: "Authority with edge", tags: ["workwear", "tailoring"], palette: ["#2A241F", "#B8863B", "#EAE1D3", "#6B6259", "#C4593A"], motif: "blazer" },
+      { id: "l6", title: "City Weekend Capsule", vibe: "Ten pieces, one carry on", tags: ["travel", "capsule"], palette: ["#F3EDE3", "#181411", "#C4593A", "#7A8B6F", "#D9B87A"], motif: "bag" },
     ],
     reviews: [
       { id: "r1", author: "Danielle M.", rating: 5, date: "May 2026", service: "Signature Wardrobe Reset", text: "Amara looked at a closet I hated and found 25 outfits inside it. I cried a little. Then we donated six trash bags and I have never dressed better." },
@@ -100,11 +100,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s3", name: "Virtual Fit Check", category: "Virtual Consult", duration: "45 min", price: 110, description: "Try things on camera and I will tell you exactly what a tailor should do with each piece.", mode: "Virtual" },
     ],
     looks: [
-      { id: "l1", title: "Unstructured Navy", vibe: "Boardroom to aperitivo", tags: ["tailoring", "workwear"], palette: ["#22333C", "#C9D8DF", "#B8863B", "#FAF7F1", "#6B6259"], emoji: "🕴️" },
-      { id: "l2", title: "Groom, Not Groomsman", vibe: "Stand out quietly", tags: ["wedding", "evening"], palette: ["#181411", "#EAE1D3", "#3E5C6B", "#D9B87A", "#2A241F"], emoji: "🤵" },
-      { id: "l3", title: "Weekend in Portofino", vibe: "Linen and loafers", tags: ["travel", "casual"], palette: ["#F3EDE3", "#3E5C6B", "#C4593A", "#D6CDBF", "#FAF7F1"], emoji: "⛵" },
-      { id: "l4", title: "The Five Figure Look for $400", vibe: "High low mastery", tags: ["budget", "tailoring"], palette: ["#2A241F", "#6B6259", "#C9D8DF", "#B8863B", "#EAE1D3"], emoji: "🧵" },
-      { id: "l5", title: "First Date Armor", vibe: "Relaxed confidence", tags: ["casual", "date"], palette: ["#3E5C6B", "#EAE1D3", "#181411", "#7A8B6F", "#D9B87A"], emoji: "🌹" },
+      { id: "l1", title: "Unstructured Navy", vibe: "Boardroom to aperitivo", tags: ["tailoring", "workwear"], palette: ["#22333C", "#C9D8DF", "#B8863B", "#FAF7F1", "#6B6259"], motif: "blazer" },
+      { id: "l2", title: "Groom, Not Groomsman", vibe: "Stand out quietly", tags: ["wedding", "evening"], palette: ["#181411", "#EAE1D3", "#3E5C6B", "#D9B87A", "#2A241F"], motif: "blazer" },
+      { id: "l3", title: "Weekend in Portofino", vibe: "Linen and loafers", tags: ["travel", "casual"], palette: ["#F3EDE3", "#3E5C6B", "#C4593A", "#D6CDBF", "#FAF7F1"], motif: "shirt" },
+      { id: "l4", title: "The Five Figure Look for $400", vibe: "High low mastery", tags: ["budget", "tailoring"], palette: ["#2A241F", "#6B6259", "#C9D8DF", "#B8863B", "#EAE1D3"], motif: "trousers" },
+      { id: "l5", title: "First Date Armor", vibe: "Relaxed confidence", tags: ["casual", "date"], palette: ["#3E5C6B", "#EAE1D3", "#181411", "#7A8B6F", "#D9B87A"], motif: "shirt" },
     ],
     reviews: [
       { id: "r1", author: "Marcus T.", rating: 5, date: "June 2026", service: "Black Tie and Beyond", text: "Got married looking better than I have ever looked in my life. Luca even briefed the tailor himself. Absolute professional." },
@@ -144,12 +144,12 @@ export const STYLISTS: Stylist[] = [
       { id: "s4", name: "Vacation Capsule Build", category: "Personal Shopping", duration: "2 hrs", price: 190, description: "Resort ready capsule shopped to your budget. Every piece mixes with every other piece.", mode: "In person or virtual" },
     ],
     looks: [
-      { id: "l1", title: "Wynwood Nights", vibe: "Tropical drama", tags: ["evening", "color"], palette: ["#5C4560", "#C4593A", "#D9B87A", "#181411", "#D9CCDC"], emoji: "🌴" },
-      { id: "l2", title: "The Wrap Dress Rebellion", vibe: "Beyond the obvious", tags: ["curve", "statement"], palette: ["#8F3A2A", "#D9CCDC", "#2A241F", "#F3EDE3", "#B8863B"], emoji: "💃" },
-      { id: "l3", title: "Boardroom Bombshell", vibe: "Power dressing, curved", tags: ["workwear", "curve"], palette: ["#2A241F", "#5C4560", "#EAE1D3", "#B8863B", "#6B6259"], emoji: "💼" },
-      { id: "l4", title: "Beach to Dinner", vibe: "One bag, two lives", tags: ["travel", "casual"], palette: ["#D9B87A", "#3E5C6B", "#FAF7F1", "#C4593A", "#7A8B6F"], emoji: "🏖️" },
-      { id: "l5", title: "Denim, Finally", vibe: "Jeans that fit for real", tags: ["casual", "curve"], palette: ["#3E5C6B", "#C9D8DF", "#181411", "#F3EDE3", "#C4593A"], emoji: "👖" },
-      { id: "l6", title: "Quinceañera Madrina", vibe: "Celebration royalty", tags: ["event", "family"], palette: ["#5C4560", "#D9B87A", "#8F3A2A", "#FAF7F1", "#181411"], emoji: "👑" },
+      { id: "l1", title: "Wynwood Nights", vibe: "Tropical drama", tags: ["evening", "color"], palette: ["#5C4560", "#C4593A", "#D9B87A", "#181411", "#D9CCDC"], motif: "dress" },
+      { id: "l2", title: "The Wrap Dress Rebellion", vibe: "Beyond the obvious", tags: ["curve", "statement"], palette: ["#8F3A2A", "#D9CCDC", "#2A241F", "#F3EDE3", "#B8863B"], motif: "dress" },
+      { id: "l3", title: "Boardroom Bombshell", vibe: "Power dressing, curved", tags: ["workwear", "curve"], palette: ["#2A241F", "#5C4560", "#EAE1D3", "#B8863B", "#6B6259"], motif: "blazer" },
+      { id: "l4", title: "Beach to Dinner", vibe: "One bag, two lives", tags: ["travel", "casual"], palette: ["#D9B87A", "#3E5C6B", "#FAF7F1", "#C4593A", "#7A8B6F"], motif: "bag" },
+      { id: "l5", title: "Denim, Finally", vibe: "Jeans that fit for real", tags: ["casual", "curve"], palette: ["#3E5C6B", "#C9D8DF", "#181411", "#F3EDE3", "#C4593A"], motif: "trousers" },
+      { id: "l6", title: "Quinceañera Madrina", vibe: "Celebration royalty", tags: ["event", "family"], palette: ["#5C4560", "#D9B87A", "#8F3A2A", "#FAF7F1", "#181411"], motif: "dress" },
     ],
     reviews: [
       { id: "r1", author: "Camila V.", rating: 5, date: "June 2026", service: "Fall Back in Love Makeover", text: "I have not worn a dress in six years. Sofia had me in one within an hour and I felt incredible. She changed my relationship with my own closet." },
@@ -188,11 +188,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s3", name: "Async Closet Review", category: "Virtual Consult", duration: "Async + 30 min call", price: 100, description: "Send photos of everything. Receive a keep, tailor, release plan plus a 30 minute walkthrough call.", mode: "Virtual" },
     ],
     looks: [
-      { id: "l1", title: "The Daily Uniform", vibe: "One decision, done", tags: ["capsule", "minimal"], palette: ["#4A5843", "#EAE1D3", "#181411", "#D6DDCD", "#6B6259"], emoji: "📐" },
-      { id: "l2", title: "Demo Day", vibe: "Credible, not corporate", tags: ["workwear", "minimal"], palette: ["#2A241F", "#D6DDCD", "#3E5C6B", "#F3EDE3", "#B8863B"], emoji: "🚀" },
-      { id: "l3", title: "Kyoto Carry On", vibe: "Two weeks, eight pieces", tags: ["travel", "capsule"], palette: ["#7A8B6F", "#F3EDE3", "#2A241F", "#C9D8DF", "#D9B87A"], emoji: "🎋" },
-      { id: "l4", title: "Texture Over Logo", vibe: "Quiet luxury", tags: ["minimal", "luxury"], palette: ["#EAE1D3", "#6B6259", "#181411", "#D6CDBF", "#7A8B6F"], emoji: "🧶" },
-      { id: "l5", title: "Fog City Layers", vibe: "SF microclimate proof", tags: ["casual", "layering"], palette: ["#6B6259", "#C9D8DF", "#4A5843", "#F3EDE3", "#2A241F"], emoji: "🌫️" },
+      { id: "l1", title: "The Daily Uniform", vibe: "One decision, done", tags: ["capsule", "minimal"], palette: ["#4A5843", "#EAE1D3", "#181411", "#D6DDCD", "#6B6259"], motif: "shirt" },
+      { id: "l2", title: "Demo Day", vibe: "Credible, not corporate", tags: ["workwear", "minimal"], palette: ["#2A241F", "#D6DDCD", "#3E5C6B", "#F3EDE3", "#B8863B"], motif: "blazer" },
+      { id: "l3", title: "Kyoto Carry On", vibe: "Two weeks, eight pieces", tags: ["travel", "capsule"], palette: ["#7A8B6F", "#F3EDE3", "#2A241F", "#C9D8DF", "#D9B87A"], motif: "bag" },
+      { id: "l4", title: "Texture Over Logo", vibe: "Quiet luxury", tags: ["minimal", "luxury"], palette: ["#EAE1D3", "#6B6259", "#181411", "#D6CDBF", "#7A8B6F"], motif: "coat" },
+      { id: "l5", title: "Fog City Layers", vibe: "SF microclimate proof", tags: ["casual", "layering"], palette: ["#6B6259", "#C9D8DF", "#4A5843", "#F3EDE3", "#2A241F"], motif: "coat" },
     ],
     reviews: [
       { id: "r1", author: "Wei Z.", rating: 5, date: "June 2026", service: "The 33 Piece System", text: "The outfit matrix spreadsheet alone is worth the price. I got dressed in 90 seconds every day this month and looked better than ever." },
@@ -232,11 +232,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s4", name: "Style Jumpstart Call", category: "Virtual Consult", duration: "60 min", price: 90, description: "One hour to break you out of your style rut with three concrete outfit formulas.", mode: "Virtual" },
     ],
     looks: [
-      { id: "l1", title: "Office, But Make It East", vibe: "Corporate with a wink", tags: ["workwear", "street"], palette: ["#181411", "#D9B87A", "#3E5C6B", "#F3EDE3", "#C4593A"], emoji: "🎧" },
-      { id: "l2", title: "Vintage Leather Everything", vibe: "Found, not bought", tags: ["vintage", "statement"], palette: ["#7A5622", "#2A241F", "#EAE1D3", "#8F3A2A", "#B8863B"], emoji: "🧥" },
-      { id: "l3", title: "Glasto Ready", vibe: "Mud proof style", tags: ["festival", "casual"], palette: ["#7A8B6F", "#B8863B", "#181411", "#D6DDCD", "#C4593A"], emoji: "🎪" },
-      { id: "l4", title: "Trainers With Everything", vibe: "The right pair changes it all", tags: ["street", "casual"], palette: ["#F3EDE3", "#181411", "#C4593A", "#C9D8DF", "#D9B87A"], emoji: "👟" },
-      { id: "l5", title: "Pub to Private View", vibe: "One outfit, two worlds", tags: ["evening", "street"], palette: ["#2A241F", "#5C4560", "#D9B87A", "#FAF7F1", "#6B6259"], emoji: "🍸" },
+      { id: "l1", title: "Office, But Make It East", vibe: "Corporate with a wink", tags: ["workwear", "street"], palette: ["#181411", "#D9B87A", "#3E5C6B", "#F3EDE3", "#C4593A"], motif: "shirt" },
+      { id: "l2", title: "Vintage Leather Everything", vibe: "Found, not bought", tags: ["vintage", "statement"], palette: ["#7A5622", "#2A241F", "#EAE1D3", "#8F3A2A", "#B8863B"], motif: "coat" },
+      { id: "l3", title: "Glasto Ready", vibe: "Mud proof style", tags: ["festival", "casual"], palette: ["#7A8B6F", "#B8863B", "#181411", "#D6DDCD", "#C4593A"], motif: "shoe" },
+      { id: "l4", title: "Trainers With Everything", vibe: "The right pair changes it all", tags: ["street", "casual"], palette: ["#F3EDE3", "#181411", "#C4593A", "#C9D8DF", "#D9B87A"], motif: "shoe" },
+      { id: "l5", title: "Pub to Private View", vibe: "One outfit, two worlds", tags: ["evening", "street"], palette: ["#2A241F", "#5C4560", "#D9B87A", "#FAF7F1", "#6B6259"], motif: "dress" },
     ],
     reviews: [
       { id: "r1", author: "Ollie F.", rating: 5, date: "May 2026", service: "East London Crawl", text: "Zara knows every rack in East London. Found a vintage jacket I get stopped about weekly. Cost me forty quid." },
@@ -276,12 +276,12 @@ export const STYLISTS: Stylist[] = [
       { id: "s4", name: "Style Foundations Call", category: "Virtual Consult", duration: "45 min", price: 80, description: "Fit, color and the three purchases that would change your look immediately.", mode: "Virtual" },
     ],
     looks: [
-      { id: "l1", title: "Church to Brunch", vibe: "Southern polish", tags: ["tailoring", "weekend"], palette: ["#2A241F", "#B8863B", "#EAE1D3", "#3E5C6B", "#FAF7F1"], emoji: "🕊️" },
-      { id: "l2", title: "Courtside Clean", vibe: "Athlete off duty", tags: ["street", "casual"], palette: ["#181411", "#C4593A", "#F3EDE3", "#6B6259", "#D9B87A"], emoji: "🏀" },
-      { id: "l3", title: "The Second First Impression", vibe: "Reunion ready", tags: ["event", "tailoring"], palette: ["#3E5C6B", "#EAE1D3", "#181411", "#B8863B", "#C9D8DF"], emoji: "🥂" },
-      { id: "l4", title: "Dad Uniform, Upgraded", vibe: "Playground approved", tags: ["casual", "capsule"], palette: ["#7A8B6F", "#F3EDE3", "#2A241F", "#C4593A", "#D6CDBF"], emoji: "🛝" },
-      { id: "l5", title: "All Black Everything, Done Right", vibe: "Texture is the trick", tags: ["minimal", "evening"], palette: ["#181411", "#2A241F", "#6B6259", "#3E3A34", "#B8863B"], emoji: "🖤" },
-      { id: "l6", title: "Groom Squad", vibe: "Five men, one vision", tags: ["wedding", "group"], palette: ["#2A241F", "#D9B87A", "#EAE1D3", "#5C4560", "#FAF7F1"], emoji: "💍" },
+      { id: "l1", title: "Church to Brunch", vibe: "Southern polish", tags: ["tailoring", "weekend"], palette: ["#2A241F", "#B8863B", "#EAE1D3", "#3E5C6B", "#FAF7F1"], motif: "blazer" },
+      { id: "l2", title: "Courtside Clean", vibe: "Athlete off duty", tags: ["street", "casual"], palette: ["#181411", "#C4593A", "#F3EDE3", "#6B6259", "#D9B87A"], motif: "shirt" },
+      { id: "l3", title: "The Second First Impression", vibe: "Reunion ready", tags: ["event", "tailoring"], palette: ["#3E5C6B", "#EAE1D3", "#181411", "#B8863B", "#C9D8DF"], motif: "blazer" },
+      { id: "l4", title: "Dad Uniform, Upgraded", vibe: "Playground approved", tags: ["casual", "capsule"], palette: ["#7A8B6F", "#F3EDE3", "#2A241F", "#C4593A", "#D6CDBF"], motif: "shirt" },
+      { id: "l5", title: "All Black Everything, Done Right", vibe: "Texture is the trick", tags: ["minimal", "evening"], palette: ["#181411", "#2A241F", "#6B6259", "#3E3A34", "#B8863B"], motif: "coat" },
+      { id: "l6", title: "Groom Squad", vibe: "Five men, one vision", tags: ["wedding", "group"], palette: ["#2A241F", "#D9B87A", "#EAE1D3", "#5C4560", "#FAF7F1"], motif: "blazer" },
     ],
     reviews: [
       { id: "r1", author: "Terrence W.", rating: 5, date: "June 2026", service: "The Grown Man Reset", text: "43 years old and I finally know how to dress. Marcus gave me formulas, not rules. My wife keeps asking what got into me." },
@@ -321,11 +321,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s4", name: "Paris on a Screen", category: "Virtual Consult", duration: "60 min", price: 130, description: "A precise, honest hour on what to keep, what to release and what one piece to buy next.", mode: "Virtual" },
     ],
     looks: [
-      { id: "l1", title: "La Base Parfaite", vibe: "Ten flawless staples", tags: ["capsule", "luxury"], palette: ["#181411", "#EAE1D3", "#6B6259", "#FAF7F1", "#B8863B"], emoji: "🥐" },
-      { id: "l2", title: "Silk at Noon", vibe: "Daylight glamour", tags: ["luxury", "daytime"], palette: ["#D9CCDC", "#181411", "#D9B87A", "#F3EDE3", "#5C4560"], emoji: "🎀" },
-      { id: "l3", title: "The Trench Thesis", vibe: "One coat, whole personality", tags: ["outerwear", "classic"], palette: ["#D6CDBF", "#2A241F", "#EAE1D3", "#8F3A2A", "#B8863B"], emoji: "🧭" },
-      { id: "l4", title: "Dinner at Nine", vibe: "Understated evening", tags: ["evening", "minimal"], palette: ["#2A241F", "#5C4560", "#FAF7F1", "#B8863B", "#181411"], emoji: "🕯️" },
-      { id: "l5", title: "Wrong Shoe Theory", vibe: "The deliberate clash", tags: ["statement", "playful"], palette: ["#F3EDE3", "#C4593A", "#181411", "#C9D8DF", "#D9B87A"], emoji: "👠" },
+      { id: "l1", title: "La Base Parfaite", vibe: "Ten flawless staples", tags: ["capsule", "luxury"], palette: ["#181411", "#EAE1D3", "#6B6259", "#FAF7F1", "#B8863B"], motif: "shirt" },
+      { id: "l2", title: "Silk at Noon", vibe: "Daylight glamour", tags: ["luxury", "daytime"], palette: ["#D9CCDC", "#181411", "#D9B87A", "#F3EDE3", "#5C4560"], motif: "dress" },
+      { id: "l3", title: "The Trench Thesis", vibe: "One coat, whole personality", tags: ["outerwear", "classic"], palette: ["#D6CDBF", "#2A241F", "#EAE1D3", "#8F3A2A", "#B8863B"], motif: "coat" },
+      { id: "l4", title: "Dinner at Nine", vibe: "Understated evening", tags: ["evening", "minimal"], palette: ["#2A241F", "#5C4560", "#FAF7F1", "#B8863B", "#181411"], motif: "dress" },
+      { id: "l5", title: "Wrong Shoe Theory", vibe: "The deliberate clash", tags: ["statement", "playful"], palette: ["#F3EDE3", "#C4593A", "#181411", "#C9D8DF", "#D9B87A"], motif: "shoe" },
     ],
     reviews: [
       { id: "r1", author: "Whitney A.", rating: 5, date: "June 2026", service: "L'Édit: Complete Wardrobe Cure", text: "Inès removed 60 percent of my closet and somehow I have more to wear. The printed style charter is the most useful document I own." },
@@ -364,11 +364,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s3", name: "Eastside Thrift Quest", category: "Personal Shopping", duration: "2.5 hrs", price: 165, description: "Silver Lake and Echo Park vintage circuit. Sustainable, affordable and completely one of a kind.", mode: "In person" },
     ],
     looks: [
-      { id: "l1", title: "Soft Structure", vibe: "Sharp shoulders, easy heart", tags: ["androgynous", "tailoring"], palette: ["#3E5C6B", "#F3EDE3", "#181411", "#D9CCDC", "#B8863B"], emoji: "🌗" },
-      { id: "l2", title: "Sunday Skate", vibe: "Silver Lake casual", tags: ["street", "casual"], palette: ["#C9D8DF", "#C4593A", "#2A241F", "#D6DDCD", "#F3EDE3"], emoji: "🛹" },
-      { id: "l3", title: "First Pride", vibe: "Loud, proud, comfortable", tags: ["event", "color"], palette: ["#C4593A", "#B8863B", "#7A8B6F", "#3E5C6B", "#5C4560"], emoji: "🏳️‍🌈" },
-      { id: "l4", title: "The New Interview", vibe: "Professional on your terms", tags: ["workwear", "androgynous"], palette: ["#2A241F", "#C9D8DF", "#EAE1D3", "#5C4560", "#6B6259"], emoji: "📎" },
-      { id: "l5", title: "Vintage Denim Head to Toe", vibe: "Found treasure", tags: ["vintage", "denim"], palette: ["#3E5C6B", "#C9D8DF", "#8F3A2A", "#F3EDE3", "#181411"], emoji: "🧢" },
+      { id: "l1", title: "Soft Structure", vibe: "Sharp shoulders, easy heart", tags: ["androgynous", "tailoring"], palette: ["#3E5C6B", "#F3EDE3", "#181411", "#D9CCDC", "#B8863B"], motif: "blazer" },
+      { id: "l2", title: "Sunday Skate", vibe: "Silver Lake casual", tags: ["street", "casual"], palette: ["#C9D8DF", "#C4593A", "#2A241F", "#D6DDCD", "#F3EDE3"], motif: "shirt" },
+      { id: "l3", title: "First Pride", vibe: "Loud, proud, comfortable", tags: ["event", "color"], palette: ["#C4593A", "#B8863B", "#7A8B6F", "#3E5C6B", "#5C4560"], motif: "shirt" },
+      { id: "l4", title: "The New Interview", vibe: "Professional on your terms", tags: ["workwear", "androgynous"], palette: ["#2A241F", "#C9D8DF", "#EAE1D3", "#5C4560", "#6B6259"], motif: "blazer" },
+      { id: "l5", title: "Vintage Denim Head to Toe", vibe: "Found treasure", tags: ["vintage", "denim"], palette: ["#3E5C6B", "#C9D8DF", "#8F3A2A", "#F3EDE3", "#181411"], motif: "trousers" },
     ],
     reviews: [
       { id: "r1", author: "Alex J.", rating: 5, date: "June 2026", service: "True Mirror Session", text: "I saw myself in the mirror for the first time. Actually me. I do not have words for what Dani gave me in three hours." },
@@ -407,11 +407,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s3", name: "Rodeo Drive Recon", category: "Personal Shopping", duration: "3 hrs", price: 390, description: "High end sourcing session with showroom access most shoppers never see.", mode: "In person" },
     ],
     looks: [
-      { id: "l1", title: "Step and Repeat", vibe: "Flashbulb proof", tags: ["red carpet", "evening"], palette: ["#8F3A2A", "#181411", "#D9B87A", "#FAF7F1", "#E8C3B5"], emoji: "📸" },
-      { id: "l2", title: "The Engagement Shoot", vibe: "Timeless in ten years", tags: ["event", "couple"], palette: ["#EAE1D3", "#5C4560", "#B8863B", "#F3EDE3", "#2A241F"], emoji: "💞" },
-      { id: "l3", title: "Press Tour Day Three", vibe: "Fresh when exhausted", tags: ["workwear", "camera"], palette: ["#2A241F", "#C9D8DF", "#8F3A2A", "#EAE1D3", "#B8863B"], emoji: "🎬" },
-      { id: "l4", title: "Gala, But Comfortable", vibe: "Four hours in heels, smiling", tags: ["evening", "gala"], palette: ["#181411", "#D9B87A", "#5C4560", "#FAF7F1", "#8F3A2A"], emoji: "🏆" },
-      { id: "l5", title: "The Rented Masterpiece", vibe: "Five figures of look, three figures of spend", tags: ["rental", "evening"], palette: ["#5C4560", "#E8C3B5", "#181411", "#B8863B", "#F3EDE3"], emoji: "💎" },
+      { id: "l1", title: "Step and Repeat", vibe: "Flashbulb proof", tags: ["red carpet", "evening"], palette: ["#8F3A2A", "#181411", "#D9B87A", "#FAF7F1", "#E8C3B5"], motif: "dress" },
+      { id: "l2", title: "The Engagement Shoot", vibe: "Timeless in ten years", tags: ["event", "couple"], palette: ["#EAE1D3", "#5C4560", "#B8863B", "#F3EDE3", "#2A241F"], motif: "dress" },
+      { id: "l3", title: "Press Tour Day Three", vibe: "Fresh when exhausted", tags: ["workwear", "camera"], palette: ["#2A241F", "#C9D8DF", "#8F3A2A", "#EAE1D3", "#B8863B"], motif: "blazer" },
+      { id: "l4", title: "Gala, But Comfortable", vibe: "Four hours in heels, smiling", tags: ["evening", "gala"], palette: ["#181411", "#D9B87A", "#5C4560", "#FAF7F1", "#8F3A2A"], motif: "dress" },
+      { id: "l5", title: "The Rented Masterpiece", vibe: "Five figures of look, three figures of spend", tags: ["rental", "evening"], palette: ["#5C4560", "#E8C3B5", "#181411", "#B8863B", "#F3EDE3"], motif: "dress" },
     ],
     reviews: [
       { id: "r1", author: "Vanessa H.", rating: 5, date: "May 2026", service: "The Premiere Package", text: "My book launch photos look like a magazine spread. The emergency kit saved the night when a heel strap snapped. She had thought of it already." },
@@ -450,11 +450,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s3", name: "Cold Climate Consult", category: "Virtual Consult", duration: "45 min", price: 85, description: "Outerwear, boots and layers that actually work, whatever your city throws at you.", mode: "Virtual" },
     ],
     looks: [
-      { id: "l1", title: "Minus Ten, Still Sharp", vibe: "Winter armor", tags: ["outerwear", "winter"], palette: ["#2E3829", "#EAE1D3", "#181411", "#B8863B", "#D6DDCD"], emoji: "❄️" },
-      { id: "l2", title: "The Lake Effect Layer", vibe: "Three layers, one silhouette", tags: ["layering", "casual"], palette: ["#4A5843", "#C9D8DF", "#2A241F", "#F3EDE3", "#6B6259"], emoji: "🌬️" },
-      { id: "l3", title: "Cabin Weekend", vibe: "Wool and firelight", tags: ["weekend", "texture"], palette: ["#7A5622", "#2E3829", "#EAE1D3", "#8F3A2A", "#D6CDBF"], emoji: "🪵" },
-      { id: "l4", title: "Office Thaw", vibe: "Coat off, still composed", tags: ["workwear", "layering"], palette: ["#2A241F", "#D6DDCD", "#3E5C6B", "#EAE1D3", "#B8863B"], emoji: "🧣" },
-      { id: "l5", title: "Nordic Summer", vibe: "Light, long evenings", tags: ["summer", "minimal"], palette: ["#F3EDE3", "#C9D8DF", "#7A8B6F", "#FAF7F1", "#181411"], emoji: "🌤️" },
+      { id: "l1", title: "Minus Ten, Still Sharp", vibe: "Winter armor", tags: ["outerwear", "winter"], palette: ["#2E3829", "#EAE1D3", "#181411", "#B8863B", "#D6DDCD"], motif: "coat" },
+      { id: "l2", title: "The Lake Effect Layer", vibe: "Three layers, one silhouette", tags: ["layering", "casual"], palette: ["#4A5843", "#C9D8DF", "#2A241F", "#F3EDE3", "#6B6259"], motif: "coat" },
+      { id: "l3", title: "Cabin Weekend", vibe: "Wool and firelight", tags: ["weekend", "texture"], palette: ["#7A5622", "#2E3829", "#EAE1D3", "#8F3A2A", "#D6CDBF"], motif: "coat" },
+      { id: "l4", title: "Office Thaw", vibe: "Coat off, still composed", tags: ["workwear", "layering"], palette: ["#2A241F", "#D6DDCD", "#3E5C6B", "#EAE1D3", "#B8863B"], motif: "coat" },
+      { id: "l5", title: "Nordic Summer", vibe: "Light, long evenings", tags: ["summer", "minimal"], palette: ["#F3EDE3", "#C9D8DF", "#7A8B6F", "#FAF7F1", "#181411"], motif: "shirt" },
     ],
     reviews: [
       { id: "r1", author: "Erik N.", rating: 5, date: "May 2026", service: "Four Season Architecture", text: "First winter of my life where I was warm AND well dressed. The layering diagrams he leaves you are genius." },
@@ -494,11 +494,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s4", name: "Quick Fusion Consult", category: "Virtual Consult", duration: "45 min", price: 90, description: "Fast answers on blending traditional pieces into modern outfits, or building an event look remotely.", mode: "Virtual" },
     ],
     looks: [
-      { id: "l1", title: "Sangeet Under the Stars", vibe: "Dance floor durable", tags: ["wedding", "traditional"], palette: ["#8F3A2A", "#D9B87A", "#5C4560", "#B8863B", "#FAF7F1"], emoji: "🪩" },
-      { id: "l2", title: "The Silk Blazer Fusion", vibe: "Heirloom meets office", tags: ["fusion", "workwear"], palette: ["#B8863B", "#2A241F", "#EAE1D3", "#8F3A2A", "#D9CCDC"], emoji: "🥻" },
-      { id: "l3", title: "SoCo Saturday", vibe: "Austin easy", tags: ["casual", "color"], palette: ["#C4593A", "#F3EDE3", "#7A8B6F", "#D9B87A", "#181411"], emoji: "🌵" },
-      { id: "l4", title: "Diwali Open House", vibe: "Festive, comfortable, glowing", tags: ["festival", "traditional"], palette: ["#D9B87A", "#8F3A2A", "#5C4560", "#F3EDE3", "#B8863B"], emoji: "🪔" },
-      { id: "l5", title: "Monsoon Wedding Guest", vibe: "Elegant in any weather", tags: ["wedding", "guest"], palette: ["#5C4560", "#D9CCDC", "#B8863B", "#2A241F", "#EAE1D3"], emoji: "🌧️" },
+      { id: "l1", title: "Sangeet Under the Stars", vibe: "Dance floor durable", tags: ["wedding", "traditional"], palette: ["#8F3A2A", "#D9B87A", "#5C4560", "#B8863B", "#FAF7F1"], motif: "dress" },
+      { id: "l2", title: "The Silk Blazer Fusion", vibe: "Heirloom meets office", tags: ["fusion", "workwear"], palette: ["#B8863B", "#2A241F", "#EAE1D3", "#8F3A2A", "#D9CCDC"], motif: "blazer" },
+      { id: "l3", title: "SoCo Saturday", vibe: "Austin easy", tags: ["casual", "color"], palette: ["#C4593A", "#F3EDE3", "#7A8B6F", "#D9B87A", "#181411"], motif: "shirt" },
+      { id: "l4", title: "Diwali Open House", vibe: "Festive, comfortable, glowing", tags: ["festival", "traditional"], palette: ["#D9B87A", "#8F3A2A", "#5C4560", "#F3EDE3", "#B8863B"], motif: "dress" },
+      { id: "l5", title: "Monsoon Wedding Guest", vibe: "Elegant in any weather", tags: ["wedding", "guest"], palette: ["#5C4560", "#D9CCDC", "#B8863B", "#2A241F", "#EAE1D3"], motif: "dress" },
     ],
     reviews: [
       { id: "r1", author: "Ananya R.", rating: 5, date: "June 2026", service: "Shaadi Season Styling", text: "Four events, four flawless looks, zero stress. She even planned outfits around the dance performances. My cousins have all taken her number." },
@@ -537,11 +537,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s3", name: "Rental Wardrobe Setup", category: "Virtual Consult", duration: "60 min", price: 70, description: "I set up and curate your rental subscriptions so you have endless novelty with zero closet guilt.", mode: "Virtual" },
     ],
     looks: [
-      { id: "l1", title: "The $60 Head Turner", vibe: "All secondhand, all stunning", tags: ["thrift", "statement"], palette: ["#7A8B6F", "#C4593A", "#F3EDE3", "#181411", "#D9B87A"], emoji: "♻️" },
-      { id: "l2", title: "Mended and Mightier", vibe: "Visible repair as flex", tags: ["repair", "denim"], palette: ["#3E5C6B", "#C9D8DF", "#8F3A2A", "#EAE1D3", "#2A241F"], emoji: "🪡" },
-      { id: "l3", title: "Rental Rotation", vibe: "New look weekly, own nothing", tags: ["rental", "workwear"], palette: ["#5C4560", "#D6DDCD", "#B8863B", "#F3EDE3", "#181411"], emoji: "🔄" },
-      { id: "l4", title: "Mission Mural Colors", vibe: "Neighborhood as palette", tags: ["color", "casual"], palette: ["#C4593A", "#D9B87A", "#3E5C6B", "#7A8B6F", "#8F3A2A"], emoji: "🎨" },
-      { id: "l5", title: "The Heirloom Blazer", vibe: "1985, tailored to 2026", tags: ["vintage", "tailoring"], palette: ["#2A241F", "#D6CDBF", "#B8863B", "#EAE1D3", "#4A5843"], emoji: "🏺" },
+      { id: "l1", title: "The $60 Head Turner", vibe: "All secondhand, all stunning", tags: ["thrift", "statement"], palette: ["#7A8B6F", "#C4593A", "#F3EDE3", "#181411", "#D9B87A"], motif: "shirt" },
+      { id: "l2", title: "Mended and Mightier", vibe: "Visible repair as flex", tags: ["repair", "denim"], palette: ["#3E5C6B", "#C9D8DF", "#8F3A2A", "#EAE1D3", "#2A241F"], motif: "trousers" },
+      { id: "l3", title: "Rental Rotation", vibe: "New look weekly, own nothing", tags: ["rental", "workwear"], palette: ["#5C4560", "#D6DDCD", "#B8863B", "#F3EDE3", "#181411"], motif: "dress" },
+      { id: "l4", title: "Mission Mural Colors", vibe: "Neighborhood as palette", tags: ["color", "casual"], palette: ["#C4593A", "#D9B87A", "#3E5C6B", "#7A8B6F", "#8F3A2A"], motif: "swatch" },
+      { id: "l5", title: "The Heirloom Blazer", vibe: "1985, tailored to 2026", tags: ["vintage", "tailoring"], palette: ["#2A241F", "#D6CDBF", "#B8863B", "#EAE1D3", "#4A5843"], motif: "blazer" },
     ],
     reviews: [
       { id: "r1", author: "Maya C.", rating: 5, date: "June 2026", service: "The Zero Waste Wardrobe", text: "She found a tailor, a cobbler and a visible mending artist for my broken favorites. My wardrobe is fully alive again and I bought nothing." },
@@ -581,11 +581,11 @@ export const STYLISTS: Stylist[] = [
       { id: "s4", name: "Fit Database Consult", category: "Virtual Consult", duration: "45 min", price: 85, description: "Your measurements plus my database equals a personalized list of brands and cuts that will actually fit you.", mode: "Virtual" },
     ],
     looks: [
-      { id: "l1", title: "The Lineman's Suit", vibe: "Built, not squeezed", tags: ["tailoring", "big and tall"], palette: ["#2A241F", "#C9D8DF", "#B8863B", "#EAE1D3", "#181411"], emoji: "🏈" },
-      { id: "l2", title: "Drape Over Cling", vibe: "Fabric that flatters", tags: ["casual", "fit"], palette: ["#3E5C6B", "#F3EDE3", "#6B6259", "#D6CDBF", "#2A241F"], emoji: "🌊" },
-      { id: "l3", title: "Boardroom Presence", vibe: "Command the room", tags: ["workwear", "tailoring"], palette: ["#181411", "#B8863B", "#EAE1D3", "#3E5C6B", "#6B6259"], emoji: "🏛️" },
-      { id: "l4", title: "Summer Without Suffering", vibe: "Breathable and sharp", tags: ["summer", "casual"], palette: ["#F3EDE3", "#C9D8DF", "#7A8B6F", "#D9B87A", "#2A241F"], emoji: "☀️" },
-      { id: "l5", title: "Game Day Host", vibe: "Casual authority", tags: ["weekend", "casual"], palette: ["#8F3A2A", "#EAE1D3", "#2A241F", "#C4593A", "#D6CDBF"], emoji: "🍖" },
+      { id: "l1", title: "The Lineman's Suit", vibe: "Built, not squeezed", tags: ["tailoring", "big and tall"], palette: ["#2A241F", "#C9D8DF", "#B8863B", "#EAE1D3", "#181411"], motif: "blazer" },
+      { id: "l2", title: "Drape Over Cling", vibe: "Fabric that flatters", tags: ["casual", "fit"], palette: ["#3E5C6B", "#F3EDE3", "#6B6259", "#D6CDBF", "#2A241F"], motif: "shirt" },
+      { id: "l3", title: "Boardroom Presence", vibe: "Command the room", tags: ["workwear", "tailoring"], palette: ["#181411", "#B8863B", "#EAE1D3", "#3E5C6B", "#6B6259"], motif: "blazer" },
+      { id: "l4", title: "Summer Without Suffering", vibe: "Breathable and sharp", tags: ["summer", "casual"], palette: ["#F3EDE3", "#C9D8DF", "#7A8B6F", "#D9B87A", "#2A241F"], motif: "shirt" },
+      { id: "l5", title: "Game Day Host", vibe: "Casual authority", tags: ["weekend", "casual"], palette: ["#8F3A2A", "#EAE1D3", "#2A241F", "#C4593A", "#D6CDBF"], motif: "shirt" },
     ],
     reviews: [
       { id: "r1", author: "Big Mike D.", rating: 5, date: "June 2026", service: "Finally Fits Overhaul", text: "6 foot 6, 320 pounds, and for the first time in my adult life my clothes fit ME instead of the other way around. James is doing sacred work." },

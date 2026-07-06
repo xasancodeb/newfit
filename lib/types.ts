@@ -16,13 +16,26 @@ export interface Service {
   mode: "In person" | "Virtual" | "In person or virtual";
 }
 
+export type MotifName =
+  | "hanger"
+  | "blazer"
+  | "dress"
+  | "coat"
+  | "trousers"
+  | "shoe"
+  | "bag"
+  | "shirt"
+  | "mirror"
+  | "scissors"
+  | "swatch";
+
 export interface Look {
   id: string;
   title: string;
   vibe: string;
   tags: string[];
   palette: string[];
-  emoji: string;
+  motif: MotifName;
 }
 
 export interface Review {
